@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: backend-deployment
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            component: backend
+    template:
+        metadata:
+            labels:
+                component: backend
+        spec:
+            containers:
+                - name: backend
+                  image: i11f2jz8e7/test-backend-k8s:v1
+                  ports:
+                    - containerPort: 5000
