@@ -15,3 +15,8 @@ spec:
             containers:
                 - name: worker
                   image: i11f2jz8e7/test-worker-k8s:v1
+                  env:
+                    - name: REDIS_HOST
+                      value: redis-cluster-ip-service
+                    - name: REDIS_PORT
+                      value: '6379'
