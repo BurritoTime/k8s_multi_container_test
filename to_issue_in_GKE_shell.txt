@@ -1,0 +1,6 @@
+gcloud config set project k8s-multi-container-test
+gcloud config seet compute/zone us-central1-a
+gcloud container clusters get-credentials k8s-multi-container-test-cluster-1
+kubectl get pods
+kubectl create secret generic pgpassword --from-literal PGPASSWORD=whatever
+kubectl create secret generic postgres-init-password --from-literal POSTGRES_PASSWORD=something
