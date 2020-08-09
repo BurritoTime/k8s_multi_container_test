@@ -1,6 +1,20 @@
 gcloud config set project k8s-multi-container-test
-gcloud config seet compute/zone us-central1-a
+gcloud config set compute/zone us-central1-c
 gcloud container clusters get-credentials k8s-multi-container-test-cluster-1
 kubectl get pods
 kubectl create secret generic pgpassword --from-literal PGPASSWORD=whatever
 kubectl create secret generic postgres-init-password --from-literal POSTGRES_PASSWORD=something
+
+# Helm setup
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# old Helm v2 stuff--not applicable for Helm v3 now that Tiller has been abstracted away
+#kubectl create serviceaccount --namespace kube-system tiller
+#kubectl create clusterrolebinding tiller-cluster-role --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+#helm init --service-account tiller --upgrade
+#helm install stable/nginx-ingress --name my-nginx --set rbac.create=true
+
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm install my-nginx stable/nginx-ingress --set rbac.create=true
